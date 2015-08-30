@@ -11,4 +11,5 @@
 
 @interface AudioStore : NSObject <AudioReader, AudioWriter>
 
+- (void) readFromFirst;
 @end

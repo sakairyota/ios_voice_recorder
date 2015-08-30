@@ -11,7 +11,7 @@
 
 @interface PBGAudioRecorder : NSObject
 
-@property id<AudioWriter> audioWriter;
+@property (nonatomic) id<AudioWriter> audioWriter;
 
 - (void) start;
 - (void) stop;

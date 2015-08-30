@@ -16,6 +16,7 @@ class ViewController: UIViewController {
 
     private let recorder = PBGAudioRecorder()
     private let store = AudioStore()
+    private let player = PBGAudioPlayer()
 
 
     @IBOutlet weak var statusLabelView: UILabel!
@@ -25,6 +26,7 @@ class ViewController: UIViewController {
 
         updateStatusText()
         recorder.audioWriter = store
+        player.audioReader = store
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,13 +62,31 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTouchDownPlay(sender: UIButton) {
+        //再生中は何もしない
+        if isPlaying {
+            return
+        }
+        //録音を1回もしていない時は再生しない
+        if !hasRecorded {
+            return
+        }
+        
         isPlaying = true
+
+        store.readFromFirst()
+        player.start()
 
         updateStatusText()
     }
 
     @IBAction func onTouchUpPlay(sender: UIButton) {
+        //再生していない時は何もしない
+        if !isPlaying {
+            return
+        }
         isPlaying = false
+
+        player.stop()
 
         updateStatusText()
     }

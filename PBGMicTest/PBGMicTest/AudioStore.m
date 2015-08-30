@@ -33,10 +33,15 @@
     free(_buffers);
 }
 
+- (void) readFromFirst {
+    _bufferReadPointer = 0;
+}
+
+// AudioPipeline
 - (void) audioPipelineWrite: (AudioQueueBuffer)buffer {
     NSLog(@"AudioStore.push called");
 
-    NSInteger bufferPointer = _bufferPointerSize;
+    NSInteger bufferPointer = _bufferSize;
 
     _bufferSize++;
     if (_bufferSize > _bufferPointerSize) {

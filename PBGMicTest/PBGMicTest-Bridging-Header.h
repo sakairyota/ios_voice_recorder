@@ -3,4 +3,5 @@
 //
 
 #import "PBGAudioRecorder.h"
+#import "PBGAudioPlayer.h"
 #import "AudioStore.h"

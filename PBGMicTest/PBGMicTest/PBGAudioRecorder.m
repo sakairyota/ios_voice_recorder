@@ -10,17 +10,14 @@
 
 #define NUM_BUFFERS 3
 
-@interface PBGAudioRecorder()
+@implementation PBGAudioRecorder
 {
     AudioStreamBasicDescription _format;
     AudioQueueRef _queue;
     AudioQueueBufferRef _buffers[NUM_BUFFERS];
 }
-@end
 
-@implementation PBGAudioRecorder
-
-static void audioInputCallback(void* inUserData,
+static void AudioInputCallback(void* inUserData,
                                AudioQueueRef inAQ,
                                AudioQueueBufferRef inBuffer,
                                const AudioTimeStamp *inStartTime,
@@ -55,7 +52,7 @@ static void audioInputCallback(void* inUserData,
 }
 
 - (void) start {
-    AudioQueueNewInput(&_format, audioInputCallback, (__bridge void *)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &_queue);
+    AudioQueueNewInput(&_format, AudioInputCallback, (__bridge void *)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &_queue);
 
     for(int i=0; i < NUM_BUFFERS; i++)
     {
