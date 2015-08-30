@@ -13,6 +13,8 @@
 		FD3882BD1B92AB55008AAFBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD3882BC1B92AB55008AAFBD /* Images.xcassets */; };
 		FD3882C01B92AB55008AAFBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD3882BE1B92AB55008AAFBD /* LaunchScreen.xib */; };
 		FD3882CC1B92AB55008AAFBD /* PBGMicTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3882CB1B92AB55008AAFBD /* PBGMicTestTests.swift */; };
+		FD3882D81B92B8D2008AAFBD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD3882D71B92B8D2008AAFBD /* AudioToolbox.framework */; };
+		FD3882DC1B92BE1E008AAFBD /* PBGAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = FD3882DB1B92BE1E008AAFBD /* PBGAudioRecorder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,10 @@
 		FD3882C51B92AB55008AAFBD /* PBGMicTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PBGMicTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD3882CA1B92AB55008AAFBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD3882CB1B92AB55008AAFBD /* PBGMicTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBGMicTestTests.swift; sourceTree = "<group>"; };
+		FD3882D71B92B8D2008AAFBD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FD3882D91B92BE1E008AAFBD /* PBGMicTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBGMicTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		FD3882DA1B92BE1E008AAFBD /* PBGAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGAudioRecorder.h; sourceTree = "<group>"; };
+		FD3882DB1B92BE1E008AAFBD /* PBGAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGAudioRecorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD3882D81B92B8D2008AAFBD /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,9 +66,11 @@
 		FD3882A71B92AB55008AAFBD = {
 			isa = PBXGroup;
 			children = (
+				FD3882D71B92B8D2008AAFBD /* AudioToolbox.framework */,
 				FD3882B21B92AB55008AAFBD /* PBGMicTest */,
 				FD3882C81B92AB55008AAFBD /* PBGMicTestTests */,
 				FD3882B11B92AB55008AAFBD /* Products */,
+				FD3882D91B92BE1E008AAFBD /* PBGMicTest-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,6 +86,8 @@
 		FD3882B21B92AB55008AAFBD /* PBGMicTest */ = {
 			isa = PBXGroup;
 			children = (
+				FD3882DA1B92BE1E008AAFBD /* PBGAudioRecorder.h */,
+				FD3882DB1B92BE1E008AAFBD /* PBGAudioRecorder.m */,
 				FD3882B51B92AB55008AAFBD /* AppDelegate.swift */,
 				FD3882B71B92AB55008AAFBD /* ViewController.swift */,
 				FD3882B91B92AB55008AAFBD /* Main.storyboard */,
@@ -213,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD3882B81B92AB55008AAFBD /* ViewController.swift in Sources */,
+				FD3882DC1B92BE1E008AAFBD /* PBGAudioRecorder.m in Sources */,
 				FD3882B61B92AB55008AAFBD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,9 +352,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PBGMicTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PBGMicTest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -350,9 +365,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PBGMicTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PBGMicTest-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -409,6 +426,7 @@
 				FD3882D11B92AB55008AAFBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FD3882D21B92AB55008AAFBD /* Build configuration list for PBXNativeTarget "PBGMicTestTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +435,7 @@
 				FD3882D41B92AB55008AAFBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

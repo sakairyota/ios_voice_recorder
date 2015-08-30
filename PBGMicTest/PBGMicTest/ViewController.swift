@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     private var isPlaying: Bool = false
     private var hasRecorded: Bool = false
 
+    private let recorder = PBGAudioRecorder()
+
+
     @IBOutlet weak var statusLabelView: UILabel!
 
     override func viewDidLoad() {
@@ -28,14 +31,28 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTouchDownRecord(sender: UIButton) {
+        //録音中はなにもしない
+        if isRecording {
+            return
+        }
+
         isRecording = true
+
+        recorder.start()
 
         updateStatusText()
     }
 
     @IBAction func onTouchUpRecord(sender: UIButton) {
+        //録音していない時はなにもしない
+        if !isRecording {
+            return
+        }
+
         isRecording = false
         hasRecorded = true
+
+        recorder.stop()
 
         updateStatusText()
     }
