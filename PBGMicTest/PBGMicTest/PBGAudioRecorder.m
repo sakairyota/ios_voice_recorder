@@ -7,6 +7,7 @@
 //
 
 #import "PBGAudioRecorder.h"
+#import "AudioUtil.h"
 
 #define NUM_BUFFERS 3
 
@@ -27,7 +28,8 @@ static void AudioInputCallback(void* inUserData,
     PBGAudioRecorder* recorder = (__bridge PBGAudioRecorder*) inUserData;
 
     if (recorder.audioWriter) {
-        [recorder.audioWriter audioPipelineWrite:*inBuffer];
+        RawAudioDataRef raw = [AudioUtil createRawFromBuffer:inBuffer];
+        [recorder.audioWriter audioPipelineWrite:raw];
     }
 
     AudioQueueEnqueueBuffer(recorder->_queue, inBuffer, 0, nil);

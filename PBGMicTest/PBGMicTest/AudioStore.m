@@ -7,11 +7,13 @@
 //
 
 #import "AudioStore.h"
+#import "AudioUtil.h"
+
 #define BUFFER_ALLOC_SIZE 100
 
 @implementation AudioStore
 {
-    AudioQueueBuffer *_buffers;
+    RawAudioData *_data;
     NSInteger _bufferSize;
     NSInteger _bufferPointerSize;
     NSInteger _bufferReadPointer;
@@ -24,13 +26,13 @@
         _bufferSize = 0;
         _bufferPointerSize = BUFFER_ALLOC_SIZE;
         _bufferReadPointer = 0;
-        _buffers = malloc(_bufferPointerSize * sizeof(AudioQueueBuffer));
+        _data = calloc(_bufferPointerSize, sizeof(RawAudioData));
     }
     return self;
 }
 
 - (void)dealloc {
-    free(_buffers);
+    free(_data);
 }
 
 - (void) readFromFirst {
@@ -38,28 +40,30 @@
 }
 
 // AudioPipeline
-- (void) audioPipelineWrite: (AudioQueueBuffer)buffer {
-    NSLog(@"AudioStore.push called");
-
+- (void) audioPipelineWrite: (RawAudioDataRef)data {
     NSInteger bufferPointer = _bufferSize;
 
     _bufferSize++;
     if (_bufferSize > _bufferPointerSize) {
         _bufferPointerSize += BUFFER_ALLOC_SIZE;
-        _buffers = realloc(_buffers, _bufferPointerSize * sizeof(AudioQueueBuffer));
+        _data = realloc(_data, _bufferPointerSize * sizeof(RawAudioData));
 
         NSLog(@"AudioStore.push : realloc");
     }
 
-    _buffers[bufferPointer] = buffer;
+    [AudioUtil copyFromRaw:data toRaw:&_data[bufferPointer]];
+
+    //NSLog(@"audioPipelineWrite : %ld", bufferPointer);
 }
 
-- (BOOL) audioPipelineRead: (AudioQueueBuffer *)buffer {
+- (BOOL) audioPipelineRead: (RawAudioDataRef)data {
     if (_bufferReadPointer >= _bufferSize) {
         return NO;
     }
 
-    *buffer = _buffers[_bufferReadPointer];
+    [AudioUtil copyFromRaw:&_data[_bufferReadPointer] toRaw:data];
+
+    //NSLog(@"audioPipelineRead : %ld", _bufferReadPointer);
     _bufferReadPointer++;
     return YES;
 }

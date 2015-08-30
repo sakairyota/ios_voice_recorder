@@ -7,17 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
+
+typedef struct RawAudioData {
+    UInt32 mLength;
+    void * mAudioData;
+    
+} RawAudioData;
+
+typedef RawAudioData *RawAudioDataRef;
+
 
 @protocol AudioReader <NSObject>
 
-- (BOOL) audioPipelineRead: (AudioQueueBuffer *)buffer;
+- (BOOL) audioPipelineRead: (RawAudioDataRef)data;
 
 @end
 
 
 @protocol AudioWriter <NSObject>
 
-- (void) audioPipelineWrite: (AudioQueueBuffer)buffer;
+- (void) audioPipelineWrite: (RawAudioDataRef)data;
 
 @end

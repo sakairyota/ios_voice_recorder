@@ -7,6 +7,7 @@
 //
 
 #import "PBGAudioPlayer.h"
+#import "AudioUtil.h"
 
 #define NUM_BUFFERS 3
 
@@ -21,9 +22,6 @@ static void AudioOutputCallback(void *inUserData,
                                 AudioQueueRef inAQ,
                                 AudioQueueBufferRef audioQueueBufferRef
                                 ) {
-
-    NSLog(@"audioOutputCallback");
-
     PBGAudioPlayer* player = (__bridge PBGAudioPlayer*) inUserData;
     [player enqueueBuffer: audioQueueBufferRef];
 }
@@ -82,16 +80,17 @@ static void AudioOutputCallback(void *inUserData,
 
 - (void)enqueueBuffer:(AudioQueueBufferRef)audioQueueBufferRef {
     if (self.audioReader) {
-        NSLog(@"enqueueBuffer");
-        AudioQueueBuffer buffer;
-        BOOL result = [self.audioReader audioPipelineRead:&buffer];
+        RawAudioDataRef raw = [AudioUtil createRawZero];
+        BOOL result = [self.audioReader audioPipelineRead:raw];
         if (!result) {
             [self finish];
             return;
         }
-        *audioQueueBufferRef = buffer;
+
+        [AudioUtil copyFromRaw:raw toBuffer:audioQueueBufferRef];
 
         AudioQueueEnqueueBuffer(_queue, audioQueueBufferRef, 0, nil);
+        NSLog(@"enqueue");
     }
 }
 
