@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     private var hasRecorded: Bool = false
 
     private let recorder = PBGAudioRecorder()
+    private let store = AudioStore()
 
 
     @IBOutlet weak var statusLabelView: UILabel!
@@ -23,6 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         updateStatusText()
+        recorder.pipeline = store
     }
 
     override func didReceiveMemoryWarning() {

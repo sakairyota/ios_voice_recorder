@@ -1,5 +1,5 @@
 //
-//  PBGAudioRecorder.h
+//  AudioPipeline.h
 //  PBGMicTest
 //
 //  Created by 境 良太 on 2015/08/30.
@@ -7,13 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AudioPipeline.h"
+#import <AudioToolbox/AudioToolbox.h>
 
-@interface PBGAudioRecorder : NSObject
+@protocol AudioPipeline <NSObject>
 
-@property id<AudioPipeline> pipeline;
-
-- (void) start;
-- (void) stop;
+- (void) push: (AudioQueueBuffer)buffer;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "PBGAudioRecorder.h"
-#import <AudioToolbox/AudioToolbox.h>
 
 #define NUM_BUFFERS 3
 
@@ -29,23 +28,29 @@ static void audioInputCallback(void* inUserData,
                                const AudioStreamPacketDescription *inPacketDescs)
 {
     PBGAudioRecorder* recorder = (__bridge PBGAudioRecorder*) inUserData;
+
+    if (recorder.pipeline) {
+        [recorder.pipeline push:*inBuffer];
+    }
+
     AudioQueueEnqueueBuffer(recorder->_queue, inBuffer, 0, nil);
-    NSLog(@"hoge");
 }
 
 
 -(id) init
 {
-    _format.mSampleRate = 44100.0f;
-    _format.mFormatID = kAudioFormatLinearPCM;
-    _format.mFramesPerPacket = 1;
-    _format.mChannelsPerFrame = 1;
-    _format.mBytesPerFrame = 2;
-    _format.mBytesPerPacket = 2;
-    _format.mBitsPerChannel = 16;
-    _format.mReserved = 0;
-    _format.mFormatFlags =
+    if (self = [super init]) {
+        _format.mSampleRate = 44100.0f;
+        _format.mFormatID = kAudioFormatLinearPCM;
+        _format.mFramesPerPacket = 1;
+        _format.mChannelsPerFrame = 1;
+        _format.mBytesPerFrame = 2;
+        _format.mBytesPerPacket = 2;
+        _format.mBitsPerChannel = 16;
+        _format.mReserved = 0;
+        _format.mFormatFlags =
         kLinearPCMFormatFlagIsBigEndian | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+    }
     return self;
 }
 
@@ -54,7 +59,7 @@ static void audioInputCallback(void* inUserData,
 
     for(int i=0; i < NUM_BUFFERS; i++)
     {
-        AudioQueueAllocateBuffer(_queue, (_format.mSampleRate / 100.0f) * _format.mBytesPerFrame, &_buffers[i]);
+        AudioQueueAllocateBuffer(_queue, (_format.mSampleRate / 10.0f) * _format.mBytesPerFrame, &_buffers[i]);
         AudioQueueEnqueueBuffer(_queue, _buffers[i], 0, nil);
     }
 
@@ -66,5 +71,6 @@ static void audioInputCallback(void* inUserData,
     AudioQueueStop(_queue, NO);
     AudioQueueDispose(_queue, YES);
 }
+
 
 @end
