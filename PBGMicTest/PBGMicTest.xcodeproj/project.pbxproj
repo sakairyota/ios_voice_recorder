@@ -16,6 +16,7 @@
 		FD3882D81B92B8D2008AAFBD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD3882D71B92B8D2008AAFBD /* AudioToolbox.framework */; };
 		FD3882DC1B92BE1E008AAFBD /* PBGAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = FD3882DB1B92BE1E008AAFBD /* PBGAudioRecorder.m */; };
 		FDB4C29D1B92CB56008E5C99 /* AudioStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB4C29C1B92CB56008E5C99 /* AudioStore.m */; };
+		FDB4C2A01B92D2ED008E5C99 /* PBGAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB4C29F1B92D2ED008E5C99 /* PBGAudioPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		FDB4C29A1B92C780008E5C99 /* AudioPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPipeline.h; sourceTree = "<group>"; };
 		FDB4C29B1B92CB56008E5C99 /* AudioStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStore.h; sourceTree = "<group>"; };
 		FDB4C29C1B92CB56008E5C99 /* AudioStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStore.m; sourceTree = "<group>"; };
+		FDB4C29E1B92D2ED008E5C99 /* PBGAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGAudioPlayer.h; sourceTree = "<group>"; };
+		FDB4C29F1B92D2ED008E5C99 /* PBGAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGAudioPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,8 @@
 				FDB4C29A1B92C780008E5C99 /* AudioPipeline.h */,
 				FDB4C29B1B92CB56008E5C99 /* AudioStore.h */,
 				FDB4C29C1B92CB56008E5C99 /* AudioStore.m */,
+				FDB4C29E1B92D2ED008E5C99 /* PBGAudioPlayer.h */,
+				FDB4C29F1B92D2ED008E5C99 /* PBGAudioPlayer.m */,
 			);
 			path = PBGMicTest;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 				FD3882DC1B92BE1E008AAFBD /* PBGAudioRecorder.m in Sources */,
 				FDB4C29D1B92CB56008E5C99 /* AudioStore.m in Sources */,
 				FD3882B61B92AB55008AAFBD /* AppDelegate.swift in Sources */,
+				FDB4C2A01B92D2ED008E5C99 /* PBGAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
     AudioQueueBuffer *_buffers;
     NSInteger _bufferSize;
     NSInteger _bufferPointerSize;
+    NSInteger _bufferReadPointer;
 }
 
 
@@ -22,6 +23,7 @@
     if (self = [super init]) {
         _bufferSize = 0;
         _bufferPointerSize = BUFFER_ALLOC_SIZE;
+        _bufferReadPointer = 0;
         _buffers = malloc(_bufferPointerSize * sizeof(AudioQueueBuffer));
     }
     return self;
@@ -31,7 +33,7 @@
     free(_buffers);
 }
 
-- (void) push: (AudioQueueBuffer)buffer {
+- (void) audioPipelineWrite: (AudioQueueBuffer)buffer {
     NSLog(@"AudioStore.push called");
 
     NSInteger bufferPointer = _bufferPointerSize;
@@ -45,6 +47,16 @@
     }
 
     _buffers[bufferPointer] = buffer;
+}
+
+- (BOOL) audioPipelineRead: (AudioQueueBuffer *)buffer {
+    if (_bufferReadPointer >= _bufferSize) {
+        return NO;
+    }
+
+    *buffer = _buffers[_bufferReadPointer];
+    _bufferReadPointer++;
+    return YES;
 }
 
 @end

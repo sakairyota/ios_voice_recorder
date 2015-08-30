@@ -1,5 +1,5 @@
 //
-//  AudioStore.h
+//  PBGAudioPlayer.h
 //  PBGMicTest
 //
 //  Created by 境 良太 on 2015/08/30.
@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AudioPipeline.h"
 
-@interface AudioStore : NSObject <AudioReader, AudioWriter>
+@interface PBGAudioPlayer : NSObject
 
 @end

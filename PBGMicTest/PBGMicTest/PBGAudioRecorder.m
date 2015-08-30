@@ -29,8 +29,8 @@ static void audioInputCallback(void* inUserData,
 {
     PBGAudioRecorder* recorder = (__bridge PBGAudioRecorder*) inUserData;
 
-    if (recorder.pipeline) {
-        [recorder.pipeline push:*inBuffer];
+    if (recorder.audioWriter) {
+        [recorder.audioWriter audioPipelineWrite:*inBuffer];
     }
 
     AudioQueueEnqueueBuffer(recorder->_queue, inBuffer, 0, nil);

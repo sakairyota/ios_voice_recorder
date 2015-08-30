@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         updateStatusText()
-        recorder.pipeline = store
+        recorder.audioWriter = store
     }
 
     override func didReceiveMemoryWarning() {

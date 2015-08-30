@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@protocol AudioPipeline <NSObject>
+@protocol AudioReader <NSObject>
 
-- (void) push: (AudioQueueBuffer)buffer;
+- (BOOL) audioPipelineRead: (AudioQueueBuffer *)buffer;
+
+@end
+
+
+@protocol AudioWriter <NSObject>
+
+- (void) audioPipelineWrite: (AudioQueueBuffer)buffer;
 
 @end
