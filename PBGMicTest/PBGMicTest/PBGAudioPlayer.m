@@ -11,11 +11,16 @@
 
 #define NUM_BUFFERS 3
 
+#define SAMPLE_RATE 44100.0f
+#define FRAMES_PER_BUFFER 4410
+
 @implementation PBGAudioPlayer
 {
     AudioStreamBasicDescription _format;
     AudioQueueRef _queue;
     AudioQueueBufferRef _buffers[NUM_BUFFERS];
+
+    NSInteger _frameIndex;
 }
 
 static void AudioOutputCallback(void *inUserData,
@@ -29,7 +34,7 @@ static void AudioOutputCallback(void *inUserData,
 -(id) init
 {
     if (self = [super init]) {
-        _format.mSampleRate = 44100.0f;
+        _format.mSampleRate = SAMPLE_RATE;
         _format.mFormatID = kAudioFormatLinearPCM;
         _format.mFramesPerPacket = 1;
         _format.mChannelsPerFrame = 1;
@@ -38,7 +43,9 @@ static void AudioOutputCallback(void *inUserData,
         _format.mBitsPerChannel = 16;
         _format.mReserved = 0;
         _format.mFormatFlags =
-        kLinearPCMFormatFlagIsBigEndian | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+            kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+
+        _frameIndex = 0;
     }
     return self;
 }
@@ -56,7 +63,7 @@ static void AudioOutputCallback(void *inUserData,
 
     for(int i=0; i < NUM_BUFFERS; i++)
     {
-        AudioQueueAllocateBuffer(_queue, (_format.mSampleRate / 10.0f) * _format.mBytesPerFrame, &_buffers[i]);
+        AudioQueueAllocateBuffer(_queue, FRAMES_PER_BUFFER * _format.mBytesPerFrame, &_buffers[i]);
         [self enqueueBuffer: _buffers[i]];
     }
 

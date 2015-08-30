@@ -48,7 +48,7 @@ static void AudioInputCallback(void* inUserData,
         _format.mBitsPerChannel = 16;
         _format.mReserved = 0;
         _format.mFormatFlags =
-        kLinearPCMFormatFlagIsBigEndian | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+            kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     }
     return self;
 }
